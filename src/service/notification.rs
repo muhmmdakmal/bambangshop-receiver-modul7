@@ -1,4 +1,3 @@
-use std::ops::Not;
 use std::thread;
 
 use rocket::http::Status;
