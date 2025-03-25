@@ -92,5 +92,18 @@ This is the place for you to write reflections:
 2. In this tutorial, we used lazy_static external library to define Vec and DashMap as a “static” variable. Compared to Java where we can mutate the content of a static variable via a static function, why did not Rust allow us to do so?
 
     Rust tidak mengizinkan perubahan langsung pada variabel global seperti static karena sistem keamanan meminimalisir kemungkinan terjadinya data race. Di Rust, variabel static secara default bersifat immutable. Agar variabel global bisa mutable, Anda harus membungkusnya dengan tipe yang menyediakan mutabilitas secara aman, seperti Mutex atau RwLock. Hal ini berbeda dengan Java yang mengizinkan perubahan langsung pada variabel static. Mekanisme Rust memastikan bahwa aliasing dan mutable borrow tidak terjadi secara bersamaan sehingga menjamin keamanan memory dan thread-safety.
-    
+
 #### Reflection Subscriber-2
+1. Have you explored things outside of the steps in the tutorial, for example: src/lib.rs? If not, explain why you did not do so. If yes, explain things that you have learned from those other parts of code.
+    
+    Saya telah mengeksplorasi file di luar langkah-langkah tutorial, misalnya file lib.rs. Dari file tersebut saya belajar bagaimana modul-modul di dalam aplikasi ini diorganisasikan dan diintegrasikan. Di file lib.rs saya melihat adanya deklarasi modul yang menghubungkan komponen controller, model, service, dan repository sehingga membentuk arsitektur MVC yang konsisten. Hal ini membantu saya memahami bagaimana komponen-komponen tersebut bekerja sama secara keseluruhan dan memberikan gambaran bagaimana project ini disusun agar lebih modular dan maintainable.
+
+2. Since you have completed the tutorial by now and have tried to test your notification system by spawning multiple instances of Receiver, explain how Observer pattern eases you to plug in more subscribers. How about spawning more than one instance of Main app, will it still be easy enough to add to the system?
+
+    Observer pattern memudahkan penambahan subscriber baru karena pola ini memisahkan logika notifikasi (subject) dari komponen yang menerima notifikasi (observer). Dengan demikian, setiap subscriber dapat didaftarkan atau dicopot secara dinamis tanpa perlu mengubah kode pada main app atau sistem intinya. Setiap kali terjadi peristiwa atau perubahan, subject cukup mengabarkan notifikasi ke semua observer yang terdaftar, sehingga integrasi berbagai receiver tambahan menjadi sangat fleksibel.
+
+    Untuk menjalankan lebih dari satu instance main app (publisher), selama arsitektur dan mekanisme komunikasi (misalnya melalui endpoint HTTP yang konsisten atau middleware message broker) diatur dengan baik, akan tetap mudah untuk menambahkan instance baru. Meskipun ada beberapa tantangan seperti sinkronisasi data dan penanganan state yang tersebar, secara konsep Observer pattern tetap memudahkan sistem dalam mengelola multiple publishers dan subscribers secara terintegrasi.
+
+3. Have you tried to make your own Tests, or enhance documentation on your Postman collection? If you have tried those features, tell us whether it is useful for your work (it can be your tutorial work or your Group Project).
+
+    Saya belum mencoba membuat test sendiri. Namun menurut saya, dengan membuat test sendiri kita bisa melakukan validasi secara otomatis terhadap endpoint API yang telah dibuat, sehingga proses debugging dan verifikasi jadi lebih efisien. Dengan demikian membantu dalam pengembangan project, terutama ketika mengintegrasikan berbagai instance sistem dan bekerja dalam tim.
